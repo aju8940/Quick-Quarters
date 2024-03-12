@@ -2,11 +2,14 @@ import express from "express";
 import connectDB from "./Db/db.js";
 import userRouter from "./Routes/userRouter.js";
 import authRouter from "./Routes/authRouter.js";
+import cookieParser from 'cookie-parser'
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+app.use(cookieParser())
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
