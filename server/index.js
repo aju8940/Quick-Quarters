@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./Db/db.js";
 import userRouter from "./Routes/userRouter.js";
 import authRouter from "./Routes/authRouter.js";
+import listingRouter from './Routes/listingRouter.js'
 import cookieParser from 'cookie-parser'
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(cookieParser())
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/listing", listingRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
