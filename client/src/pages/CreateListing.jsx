@@ -50,7 +50,7 @@ const CreateListing = () => {
           setUploading(false);
         })
         .catch((err) => {
-          setImageUploadError("Image Upload Failed (max 2 mb per image)");
+          setImageUploadError("Image Upload Failed (max 5 mb per image)");
           setUploading(false);
         });
     } else if (files.length === 0) {
@@ -72,7 +72,6 @@ const CreateListing = () => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("PRogresSS", progress);
         },
         (error) => {
           rej(error);
@@ -162,7 +161,7 @@ const CreateListing = () => {
             placeholder="Name"
             className="border p-3 rounded-lg"
             maxLength="62"
-            minLength="10"
+            minLength="5"
             id="name"
             onChange={handleChange}
             value={formData.name}
