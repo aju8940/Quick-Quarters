@@ -1,17 +1,16 @@
-import React from "react";
-import Home from "./pages/Home";
+import {Home} from "./pages/Home";
 import { About } from "./pages/About";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
+import {SignIn} from "./pages/SignIn";
+import {SignUp} from "./pages/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Profile from "./pages/Profile";
-import Header from "./components/Header";
-import PrivateRoute from "./components/PrivateRoute";
-import CreateListing from "./pages/CreateListing";
-import UpdateListing from "./pages/UpdateListing";
-import Listing from "./pages/Listing";
+import {Profile} from "./pages/Profile";
+import {Header} from "./components/Header";
+import {PrivateRoute} from "./components/PrivateRoute";
+import {CreateListing} from "./pages/CreateListing";
+import {UpdateListing} from "./pages/UpdateListing";
+import {Listing} from "./pages/Listing";
 
-const App = () => {
+export const App = () => {
   return (
     <BrowserRouter>
       <Header />
@@ -30,5 +29,3 @@ const App = () => {
     </BrowserRouter>
   );
 };
-
-export default App;

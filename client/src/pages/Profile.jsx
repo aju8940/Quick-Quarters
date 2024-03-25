@@ -20,7 +20,7 @@ import {
 } from "../redux/user/userSlice";
 import { Link } from "react-router-dom";
 
-const Profile = () => {
+export const Profile = () => {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -72,7 +72,6 @@ const Profile = () => {
           )
           .catch((error) => {
             console.error("Failed to get download URL:", error);
-            // Handle permission error here (e.g., display a message to the user)
           });
       }
     );
@@ -151,9 +150,9 @@ const Profile = () => {
         return;
       }
       setUserListings(data);
-      console.log(userListings, "DATAAAA");
     } catch (error) {
       setShowListingError(true);
+      console.log(showListingError);
     }
   };
 
@@ -303,5 +302,3 @@ const Profile = () => {
     </>
   );
 };
-
-export default Profile;

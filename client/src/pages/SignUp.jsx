@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Oauth from "../components/Oauth";
+import {Oauth} from "../components/Oauth";
 
-const SignUp = () => {
+export const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -33,10 +33,10 @@ const SignUp = () => {
         return;
       }
       setLoading(false);
-      setError(null)
-      navigate('/sign-in')
+      setError(null);
+      navigate("/sign-in");
     } catch (error) {
-      console.log('Err',error);
+      console.log("Err", error);
       setLoading(false);
       setError(error.message);
     }
@@ -67,10 +67,13 @@ const SignUp = () => {
           id="password"
           onChange={handleChange}
         />
-        <button disabled={loading} className="bg-blue-800 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
-         {loading ? 'Loading...' : 'Sign Up'}
+        <button
+          disabled={loading}
+          className="bg-blue-800 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+        >
+          {loading ? "Loading..." : "Sign Up"}
         </button>
-        <Oauth/>  
+        <Oauth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account ?</p>
@@ -82,5 +85,3 @@ const SignUp = () => {
     </div>
   );
 };
-
-export default SignUp;
