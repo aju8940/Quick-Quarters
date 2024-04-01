@@ -16,7 +16,7 @@ import {
 } from "react-icons/fa";
 import {Contact} from "../components/Contact";
 
-export const Listing = () => {
+export const Listing  = () => {
   SwiperCore.use([Navigation]);
   const params = useParams();
   const [listing, setListing] = useState(null);

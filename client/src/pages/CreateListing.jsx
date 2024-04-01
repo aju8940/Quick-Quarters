@@ -136,7 +136,7 @@ export const CreateListing = () => {
         },
         body: JSON.stringify(formData),
       });
-      const data = res.json();
+      const data = await res.json();
       setLoading(false);
       if (data.success === false) {
         setSubmitErr(data.message);
@@ -160,7 +160,7 @@ export const CreateListing = () => {
             required
             placeholder="Name"
             className="border p-3 rounded-lg"
-            maxLength="62"
+            maxLength="150"
             minLength="5"
             id="name"
             onChange={handleChange}

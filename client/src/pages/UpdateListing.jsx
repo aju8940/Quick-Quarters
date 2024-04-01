@@ -152,12 +152,13 @@ export const UpdateListing = () => {
         },
         body: JSON.stringify(formData),
       });
-      const data = res.json();
+      const data = await res.json();
       setLoading(false);
       if (data.success === false) {
         setSubmitErr(data.message);
       }
-      navigate(`/listing/${params._id}`);
+
+      navigate(`/listing/${params.id}`);
     } catch (error) {
       setSubmitErr(error.message);
       setLoading(false);
@@ -174,7 +175,7 @@ export const UpdateListing = () => {
             required
             placeholder="Name"
             className="border p-3 rounded-lg"
-            maxLength="62"
+            maxLength="150"
             minLength="5"
             id="name"
             onChange={handleChange}
