@@ -22,7 +22,7 @@ export const signIn = async (req, res, next) => {
     if (!userExist) return next(errorHandler(404, "User Not Found!"));
     const validPassword = bcrypt.compareSync(password, userExist.password);
     if (!validPassword) return next(errorHandler(401, "Invalid Password"));
-    const token = Jwt.sign({ id: userExist._id }, process.env.JWT_SECRET);
+    const token = Jwt.sign({ id: userExist._id }, process.env.JWT_SECRET,{ expiresIn: "1d" });
     const { password: pass, ...rest } = userExist._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
@@ -37,7 +37,7 @@ export const googleAuth = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      const token = Jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const token = Jwt.sign({ id: user._id }, process.env.JWT_SECRET,{ expiresIn: "1d" });
       const { password: pass, ...rest } = user._doc;
       res
         .cookie("access_token", token, { httpOnly: true })
@@ -56,7 +56,7 @@ export const googleAuth = async (req, res, next) => {
         avatar: req.body.photo,
       });
       await newUser.save();
-      const token = Jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      const token = Jwt.sign({ id: newUser._id }, process.env.JWT_SECRET,{ expiresIn: "1d" });
       const { password: pass, ...rest } = newUser._doc;
       res
         .cookie("access_token", token, { httpOnly: true })
