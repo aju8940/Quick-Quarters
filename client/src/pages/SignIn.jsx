@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,10 +6,11 @@ import {
   signInStart,
   signInSuccess,
 } from "../redux/user/userSlice";
-import {Oauth} from "../components/Oauth";
+import { Oauth } from "../components/Oauth";
 
 export const SignIn = () => {
   const [formData, setFormData] = useState({});
+  const [displayError, setDisplayError] = useState(false); 
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,15 +35,27 @@ export const SignIn = () => {
       });
       const data = await res.json();
       if (data.success === false) {
+        setDisplayError(true);
         dispatch(signInFailure(data.message));
         return;
       }
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
+      setDisplayError(true); 
       dispatch(signInFailure(error.message));
     }
   };
+
+  useEffect(() => {
+    if (displayError) {
+      const timeout = setTimeout(() => {
+        setDisplayError(false);
+      }, 3000); 
+
+      return () => clearTimeout(timeout); 
+    }
+  }, [displayError]);
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -78,7 +91,7 @@ export const SignIn = () => {
           <span className="text-blue-700 ">Sign Up</span>
         </Link>
       </div>
-      {error && <p className="text-red-500 mt-5">{error}</p>}
+      {displayError && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 };

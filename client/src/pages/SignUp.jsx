@@ -1,11 +1,12 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {Oauth} from "../components/Oauth";
+import { Oauth } from "../components/Oauth";
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [displayError, setDisplayError] = useState(false); 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,6 +30,7 @@ export const SignUp = () => {
       const data = await res.json();
       if (data.success === false) {
         setLoading(false);
+        setDisplayError(true);
         setError(data.message);
         return;
       }
@@ -38,9 +40,20 @@ export const SignUp = () => {
     } catch (error) {
       console.log("Err", error);
       setLoading(false);
+      setDisplayError(true);
       setError(error.message);
     }
   };
+
+  useEffect(() => {
+    if (displayError) {
+      const timeout = setTimeout(() => {
+        setDisplayError(false);
+      }, 3000); 
+
+      return () => clearTimeout(timeout); 
+    }
+  }, [displayError]);
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -84,7 +97,7 @@ export const SignUp = () => {
           <span className="text-blue-700 ">Sign In</span>
         </Link>
       </div>
-      {error && <p className="text-red-500 mt-5">{error}</p>}
+      {displayError && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 };
